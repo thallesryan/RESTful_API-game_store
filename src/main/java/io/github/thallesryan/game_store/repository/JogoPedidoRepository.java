@@ -9,5 +9,5 @@ import io.github.thallesryan.game_store.domain.Pedido;
 @Repository
 public interface JogoPedidoRepository extends JpaRepository<JogoPedido, Long>{
 	
-	public void deleteByPedido(Pedido pedido);
+	void deleteByPedido(Pedido pedido);
 }

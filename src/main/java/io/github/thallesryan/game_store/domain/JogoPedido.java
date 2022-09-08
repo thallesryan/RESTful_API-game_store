@@ -27,7 +27,7 @@ public class JogoPedido {
 	private Pedido pedido;
 	
 	@ManyToOne //Vários JogoPedido para um jogo
-	private Jogo jogo;
+	private Game game;
 	
 	private Integer qtde;
 	

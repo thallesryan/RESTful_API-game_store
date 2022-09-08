@@ -1,13 +1,13 @@
 package io.github.thallesryan.game_store.exception;
 
-public class JogoNaoEncontradoException extends RuntimeException{
+public class GameNotFoundException extends RuntimeException{
 	
 	 /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public JogoNaoEncontradoException(){
+	public GameNotFoundException(){
 		super("Jogo não encontrado.");
 	}
 }

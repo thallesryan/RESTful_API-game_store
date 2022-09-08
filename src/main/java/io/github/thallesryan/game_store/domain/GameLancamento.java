@@ -5,14 +5,14 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("lancamento")
-public class JogoLancamento extends Jogo{
+public class GameLancamento extends Game {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public JogoLancamento(String nome, Double preco,int qtd_estoque ) {
+	public GameLancamento(String nome, Double preco, int qtd_estoque ) {
 		super(nome, preco, qtd_estoque);
 	}
 }

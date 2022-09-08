@@ -1,6 +1,7 @@
 package io.github.thallesryan.game_store.exception;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.Data;
@@ -15,7 +16,7 @@ public class ApiErros {
 	List<String> erros;
 	
 	public ApiErros(String mensagem) {
-		this.erros = Arrays.asList(mensagem);
+		this.erros = Collections.singletonList(mensagem);
 	}
 	
 	public ApiErros(List<String> mensagens) {

@@ -2,8 +2,8 @@ package io.github.thallesryan.game_store.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import io.github.thallesryan.game_store.domain.Jogo;
+import io.github.thallesryan.game_store.domain.Game;
 
-public interface JogoRepository extends JpaRepository<Jogo, Long>{
+public interface GameRepository extends JpaRepository<Game, Long>{
 
 }

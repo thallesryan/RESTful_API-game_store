@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import io.github.thallesryan.game_store.exception.ApiErros;
-import io.github.thallesryan.game_store.exception.JogoNaoEncontradoException;
+import io.github.thallesryan.game_store.exception.GameNotFoundException;
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
@@ -20,9 +20,9 @@ public class ApplicationControllerAdvice {
 	 * @author Thalles
 	 * @param JogoNaoEncontradoException
 	 * @return ApiErros*/
-	@ExceptionHandler(JogoNaoEncontradoException.class)
+	@ExceptionHandler(GameNotFoundException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ApiErros handleJogoNaoEncontradoException(JogoNaoEncontradoException ex) {
+	public ApiErros handleJogoNaoEncontradoException(GameNotFoundException ex) {
 		 return new ApiErros(ex.getMessage());
 	}
 	

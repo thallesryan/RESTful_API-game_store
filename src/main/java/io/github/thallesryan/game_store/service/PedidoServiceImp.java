@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import io.github.thallesryan.game_store.domain.Jogo;
+import io.github.thallesryan.game_store.domain.Game;
 import io.github.thallesryan.game_store.domain.JogoPedido;
 import io.github.thallesryan.game_store.domain.Pedido;
 import io.github.thallesryan.game_store.domain.dto.JogoPedidoDTO;
@@ -28,7 +28,7 @@ public class PedidoServiceImp implements PedidoService{
 	JogoPedidoRepository jogoPedidoRepository;
 	
 	@Autowired
-	JogoServiceImpl jogoService;
+	GameServiceImpl jogoService;
 	
 	@Override
 	public void salvar(PedidoDTO pedidoDTO) {
@@ -76,10 +76,10 @@ public class PedidoServiceImp implements PedidoService{
 	private List<JogoPedido> converterJogosPedidoDTO(List<JogoPedidoDTO> jogosPedidoDTO, Pedido pedido) {		
 		return	jogosPedidoDTO.stream().map(itemPedidoDTO -> {
 			Long idJogo = itemPedidoDTO.getJogoId();
-			Jogo jogo = jogoService.findById(idJogo);
+			Game game = jogoService.findById(idJogo);
 			
 			JogoPedido pedidoItem = new JogoPedido();
-			pedidoItem.setJogo(jogo);
+			pedidoItem.setGame(game);
 			pedidoItem.setQtde(itemPedidoDTO.getQuantidade());
 			pedidoItem.setPedido(pedido);
 			
