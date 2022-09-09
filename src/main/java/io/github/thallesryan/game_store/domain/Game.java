@@ -19,16 +19,13 @@ import lombok.ToString;
 /*Lombok*/
 @Getter @Setter
 @ToString @EqualsAndHashCode  @NoArgsConstructor 
+
 /*Herança*/
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Categoria", length = 10, discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Regular")
 @Entity
 public class Game implements Serializable{
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
