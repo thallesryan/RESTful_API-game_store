@@ -52,10 +52,8 @@ public class GameController {
 	}
 	
 	@GetMapping("/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public Game buscarJogoPeloId(@PathVariable Long id) {
-
-		return jogoService.findById(id);
+	public ResponseEntity<Game> buscarJogoPeloId(@PathVariable Long id) {
+		return ResponseEntity.ok().body(jogoService.findById(id));
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -67,7 +65,6 @@ public class GameController {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping
 	public ResponseEntity<Page<GameResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "0")Integer page, @RequestParam(value = "size", defaultValue = "12")Integer size){
-		
 		Pageable pagable = PageRequest.of(page, size);
 		return ResponseEntity.ok(jogoService.findAll(pagable));
 	}
