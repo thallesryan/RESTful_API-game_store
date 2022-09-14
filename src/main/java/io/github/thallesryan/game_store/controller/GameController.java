@@ -1,5 +1,7 @@
 package io.github.thallesryan.game_store.controller;
 
+import java.net.URI;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.github.thallesryan.game_store.domain.Game;
 import io.github.thallesryan.game_store.domain.dto.game.GameRequestDTO;
@@ -31,42 +34,45 @@ import io.github.thallesryan.game_store.service.GameServiceImpl;
 public class GameController {
 	
 	@Autowired
-	GameServiceImpl jogoService;
+	GameServiceImpl gameService;
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void salvar(@RequestBody @Valid GameRequestDTO game) {
-		Game entity = GameMapper.INSTANCE.toEntity(game);
-		jogoService.save(entity);
+	public ResponseEntity<GameResponseDTO> salvar(@RequestBody @Valid GameRequestDTO game) {
 		
+		GameResponseDTO gameResponse = gameService.save(game);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(gameResponse.getId()).toUri();
+		//No header da response
+		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Game game){
-		Game gameEncontrado = jogoService.findById(id);
+	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody GameRequestDTO game){
+		Game gameEncontrado = gameService.findById(id);
 		gameEncontrado.setNome(game.getNome());
 		gameEncontrado.setPreco(game.getPreco());
 		gameEncontrado.setQtdeEstoque(game.getQtdeEstoque());
-		jogoService.save(gameEncontrado);
+		gameService.update(gameEncontrado);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Game> buscarJogoPeloId(@PathVariable Long id) {
-		return ResponseEntity.ok().body(jogoService.findById(id));
+	public ResponseEntity<GameResponseDTO> buscarJogoPeloId(@PathVariable Long id) {
+		GameResponseDTO response = GameMapper.INSTANCE.toResponseDTO(gameService.findById(id));
+		return ResponseEntity.ok().body(response);
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("{id}")
 	public void deletarJogo(@PathVariable Long id) {
-		jogoService.delete(id);
+		gameService.delete(id);
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping
 	public ResponseEntity<Page<GameResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "0")Integer page, @RequestParam(value = "size", defaultValue = "12")Integer size){
 		Pageable pagable = PageRequest.of(page, size);
-		return ResponseEntity.ok(jogoService.findAll(pagable));
+		return ResponseEntity.ok(gameService.findAll(pagable));
 	}
 	
 	

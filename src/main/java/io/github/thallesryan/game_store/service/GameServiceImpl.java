@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import io.github.thallesryan.game_store.domain.Game;
+import io.github.thallesryan.game_store.domain.dto.game.GameRequestDTO;
 import io.github.thallesryan.game_store.domain.dto.game.GameResponseDTO;
 import io.github.thallesryan.game_store.exception.GameNotFoundException;
 import io.github.thallesryan.game_store.mapper.GameMapper;
@@ -18,9 +19,11 @@ public class GameServiceImpl implements GameService {
 	GameRepository repository;
 
 	@Override
-	public void save(Game game) {
-
-		this.repository.save(game);
+	public GameResponseDTO save(GameRequestDTO game) {
+		GameMapper mapper = GameMapper.INSTANCE;
+		
+		Game entity = this.repository.save(mapper.toEntity(game));
+		return mapper.toResponseDTO(entity);
 	}
 
 	@Override
@@ -37,7 +40,8 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	public Game findById(Long idJogo) {
-
+		GameMapper mapper = GameMapper.INSTANCE;
+		
 		return repository.findById(idJogo).orElseThrow(() -> new GameNotFoundException());
 	}
 

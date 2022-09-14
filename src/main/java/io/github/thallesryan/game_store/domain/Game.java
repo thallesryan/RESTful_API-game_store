@@ -33,16 +33,11 @@ public class Game implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty(message = "Nome não pode estar vazio.")
-	@Column(name = "nome", length = 100)
 	private String nome;
 	
-	@Positive(message = "Preço tem que ser Positivo e maior que zero.")
-	@NotNull(message = "Preço não pode estar vazio.")
 	@Column(nullable = false, scale = 2)
 	private Double preco;
 	
-	@PositiveOrZero(message = "Estoque não pode ser negativo.")
 	private Integer qtdeEstoque;
 
 	@Column(name = "Gênero")
