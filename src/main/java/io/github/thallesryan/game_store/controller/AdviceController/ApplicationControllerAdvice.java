@@ -4,11 +4,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import io.github.thallesryan.game_store.exception.ErrorMessage;
+import io.github.thallesryan.game_store.exception.GameNotFoundException;
 import io.github.thallesryan.game_store.exception.StandardError;
 import io.github.thallesryan.game_store.exception.ValidationError;
 
@@ -20,24 +22,11 @@ public class ApplicationControllerAdvice {
 	 * @author Thalles
 	 * @param JogoNaoEncontradoException
 	 * @return ApiErros*/
-//	@ExceptionHandler(GameNotFoundException.class)
-//	@ResponseStatus(HttpStatus.BAD_REQUEST)
-//	public message handleJogoNaoEncontradoException(GameNotFoundException ex) {
-//		 return new ApiErros(ex.getMessage());
-//	}
-	
-	/**
-	 *Lida com todos os erros gerados pelas Constraints/validações
-	 * @param MethodArgumentNotValidException
-	 * @return ApiErros*/
-//	@ExceptionHandler(MethodArgumentNotValidException.class)
-//	@ResponseStatus(HttpStatus.BAD_REQUEST)
-//	public ApiErros handleMethodAtgumentNotValidException(MethodArgumentNotValidException ex) {
-//		
-//		List<String> errosNasValidacoes =  ex.getBindingResult().getAllErrors().stream().map(erro -> erro.getDefaultMessage()).collect(Collectors.toList());
-//		return new ApiErros(errosNasValidacoes);
-//	}
-//	
+	@ExceptionHandler(GameNotFoundException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorMessage handleJogoNaoEncontradoException(GameNotFoundException ex) {
+		 return new ErrorMessage(ex.getMessage());
+	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validationErrors(MethodArgumentNotValidException ex,

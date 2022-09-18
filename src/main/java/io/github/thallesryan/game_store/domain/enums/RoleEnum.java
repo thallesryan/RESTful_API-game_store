@@ -2,31 +2,31 @@ package io.github.thallesryan.game_store.domain.enums;
 
 public enum RoleEnum {
 
-	ADMIN(0, "ROLE_ADMIN"), CLIENTE(1, "ROLE_CLIENTE"), TECNICO(2, "ROLE_TECNICO");
+	ADMIN(0, "ROLE_ADMIN"), CLIENTE(1, "ROLE_CLIENTE");
 	
-	private Integer codigo;
-	private String descricao;
+	private Integer code;
+	private String description;
 	
-	private RoleEnum(Integer codigo, String descricao) {
-		this.codigo = codigo;
-		this.descricao = descricao;
+	private RoleEnum(Integer code, String description) {
+		this.code = code;
+		this.description = description;
 	}
 
-	public Integer getCodigo() {
-		return codigo;
+	public Integer getCode() {
+		return code;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 	
-	public static RoleEnum toEnum(Integer cod) {
-		if(cod == null) {
+	public static RoleEnum toEnum(Integer code) {
+		if(code == null) {
 			return null;
 		}
 		
 		for(RoleEnum x : RoleEnum.values()) {
-			if(cod.equals(x.getCodigo())) {
+			if(code.equals(x.getCode())) {
 				return x;
 			}
 		}

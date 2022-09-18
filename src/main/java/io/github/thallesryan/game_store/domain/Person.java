@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -16,28 +17,45 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import io.github.thallesryan.game_store.domain.enums.RoleEnum;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity @Data
-public abstract class Person implements Serializable {
+@Entity @Data @NoArgsConstructor
+public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Integer id;
+	private Integer id;
 	
-	protected String name;
+	private String name;
 	
 	@Column(unique = true)
-	protected String email;
+	private String email;
 	
-	protected String password;
+	private String password;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "roles")
-	protected Set<Integer> roles = new HashSet<>();
+	@CollectionTable(name = "person_roles")
+	private Set<Integer> roles = new HashSet<>();
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	protected LocalDate dt = LocalDate.now();
+	private LocalDate dt = LocalDate.now();
+	
+	public Set<RoleEnum> getRoles() {
+		return roles.stream().map(x -> RoleEnum.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public Person(Integer id, String name, String email, String password, Set<Integer> roles) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.roles = roles;
+	}
+	
+	
 
 }

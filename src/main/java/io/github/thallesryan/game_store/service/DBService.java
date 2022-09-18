@@ -4,13 +4,16 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import io.github.thallesryan.game_store.domain.Game;
 import io.github.thallesryan.game_store.domain.Item;
 import io.github.thallesryan.game_store.domain.Order;
+import io.github.thallesryan.game_store.domain.Person;
 import io.github.thallesryan.game_store.repository.GameRepository;
 import io.github.thallesryan.game_store.repository.OrderRepository;
+import io.github.thallesryan.game_store.repository.PersonRepository;
 
 @Service
 public class DBService {
@@ -20,6 +23,12 @@ public class DBService {
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
+	@Autowired
+	private PersonRepository personRepository;
 	 
 	public void instantiateDB() {
 		
@@ -31,5 +40,7 @@ public class DBService {
 		
 		Order order = new Order(Set.of(new Item(game, 1), new Item(game2, 1)));
 		orderRepository.save(order);
+		
+		personRepository.save(new Person(1,"Thalles","thallesryan2@gmail.com", encoder.encode("123"),Set.of(0,1)));
 	}
 }
