@@ -49,6 +49,7 @@ public class GameController {
 	}
 	
 	@PutMapping("/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody GameRequestDTO game){
 		Game gameEncontrado = gameService.findById(id);
 		gameEncontrado.setNome(game.getNome());
@@ -65,6 +66,7 @@ public class GameController {
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("{id}")
 	public void deletarJogo(@PathVariable Long id) {
 		gameService.delete(id);
@@ -76,6 +78,4 @@ public class GameController {
 		Pageable pagable = PageRequest.of(page, size);
 		return ResponseEntity.ok(gameService.findAll(pagable));
 	}
-	
-	
 }
