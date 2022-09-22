@@ -1,4 +1,4 @@
-package io.github.thallesryan.game_store.domain.dto;
+package io.github.thallesryan.game_store.domain.dto.user;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor
-public class PersonRequestDTO {
+public class UserRequestDTO {
 	
 	private String name;
 	

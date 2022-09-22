@@ -1,13 +1,21 @@
 package io.github.thallesryan.game_store.domain.dto.order;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.time.LocalDate;
+import java.util.Set;
 
+import io.github.thallesryan.game_store.domain.Item;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@RestController
-@RequestMapping("order")
+@Data @NoArgsConstructor @AllArgsConstructor
 public class OrderResponseDTO {
 
+	private Integer id;
 	
+	private LocalDate date;
+	
+	private Set<Item> itens;
+	
+	private Double total;
 }

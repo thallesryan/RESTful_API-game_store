@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import io.github.thallesryan.game_store.domain.Game;
 import io.github.thallesryan.game_store.domain.Item;
 import io.github.thallesryan.game_store.domain.Order;
-import io.github.thallesryan.game_store.domain.Person;
+import io.github.thallesryan.game_store.domain.UserModel;
 import io.github.thallesryan.game_store.repository.GameRepository;
 import io.github.thallesryan.game_store.repository.OrderRepository;
-import io.github.thallesryan.game_store.repository.PersonRepository;
+import io.github.thallesryan.game_store.repository.UserRepository;
 
 @Service
 public class DBService {
@@ -28,7 +28,7 @@ public class DBService {
 	private BCryptPasswordEncoder encoder;
 	
 	@Autowired
-	private PersonRepository personRepository;
+	private UserRepository personRepository;
 	 
 	public void instantiateDB() {
 		
@@ -41,6 +41,6 @@ public class DBService {
 		Order order = new Order(Set.of(new Item(game, 1), new Item(game2, 1)));
 		orderRepository.save(order);
 		
-		personRepository.save(new Person(1,"Thalles","thallesryan2@gmail.com", encoder.encode("123"),Set.of(0,1)));
+		personRepository.save(new UserModel(1,"Thalles","thallesryan2@gmail.com", encoder.encode("123"),Set.of(0,1)));
 	}
 }
