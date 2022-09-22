@@ -34,19 +34,12 @@ public class Order implements Serializable{
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "orders_itens")
 	private Set<Item> itens;
-	
-	private Double total;
 
 	public Order(Set<Item> itens) {
 		super();
 		this.itens = itens;
-		calcTotal();
-	
 	}
 	
-	private void calcTotal() {
-		Double orderValue = this.itens.stream().map(item -> item.getGame().getPreco() * item.getQuantity()).reduce(0D, Double::sum);
-		this.setTotal(orderValue);  
-	}
+	
 	
 }

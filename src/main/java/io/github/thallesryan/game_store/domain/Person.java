@@ -22,7 +22,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity @Data @NoArgsConstructor
-public class UserModel implements Serializable {
+public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -47,7 +47,7 @@ public class UserModel implements Serializable {
 		return roles.stream().map(x -> RoleEnum.toEnum(x)).collect(Collectors.toSet());
 	}
 
-	public UserModel(Integer id, String name, String email, String password, Set<Integer> roles) {
+	public Person(Integer id, String name, String email, String password, Set<Integer> roles) {
 		super();
 		this.id = id;
 		this.name = name;
