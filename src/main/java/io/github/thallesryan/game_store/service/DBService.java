@@ -42,5 +42,6 @@ public class DBService {
 		orderRepository.save(order);
 		
 		personRepository.save(new UserModel(1,"Thalles","thallesryan2@gmail.com", encoder.encode("123"),Set.of(0,1)));
+		personRepository.save(new UserModel(2,"Vinicius","viniciusAmaro@gmail.com", encoder.encode("123"),Set.of(1)));
 	}
 }
