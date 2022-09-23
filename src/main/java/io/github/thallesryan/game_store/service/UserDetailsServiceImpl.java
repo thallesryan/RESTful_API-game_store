@@ -8,19 +8,19 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import io.github.thallesryan.game_store.domain.Person;
-import io.github.thallesryan.game_store.repository.PersonRepository;
+import io.github.thallesryan.game_store.domain.UserModel;
+import io.github.thallesryan.game_store.repository.UserRepository;
 import io.github.thallesryan.game_store.security.UserSS;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Autowired
-	private PersonRepository repository;
+	private UserRepository repository;
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Optional<Person> user = repository.findByEmail(email);
+		Optional<UserModel> user = repository.findByEmail(email);
 		if(user.isPresent()) {
 			return new UserSS(user.get().getId(), user.get().getEmail(), user.get().getPassword(), user.get().getRoles());
 		}
