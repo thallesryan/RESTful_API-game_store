@@ -21,9 +21,10 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public GameResponseDTO save(GameRequestDTO game) {
 		GameMapper mapper = GameMapper.INSTANCE;
-		
-		Game entity = this.repository.save(mapper.toEntity(game));
-		return mapper.toResponseDTO(entity);
+		Game entitytoSave = mapper.toEntity(game);
+		entitytoSave.isAvailable();
+		Game entitySaved = this.repository.save(entitytoSave);
+		return mapper.toResponseDTO(entitySaved);
 	}
 
 	@Override

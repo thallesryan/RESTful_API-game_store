@@ -24,14 +24,14 @@ public class GameRequestDTO implements Serializable{
 	
 	@NotEmpty(message = "Nome não pode estar vazio.")
 	@Column(name = "nome", length = 100)
-	private String nome;
+	private String name;
 	
 	@Positive(message = "Preço tem que ser Positivo e maior que zero.")
 	@NotNull(message = "Preço não pode estar vazio.")
-	private Double preco;
+	private Double price;
 	
 	@PositiveOrZero(message = "Estoque não pode ser negativo.")
-	private Integer qtdeEstoque;
+	private Integer quantity;
 	
 	private GameGenre genre;
 

@@ -33,20 +33,30 @@ public class Game implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String nome;
+	private String name;
 	
 	@Column(nullable = false, scale = 2)
-	private Double preco;
+	private Double price;
 	
-	private Integer qtdeEstoque;
+	private Integer quantity;
 
 	@Column(name = "Gênero")
 	@Enumerated(EnumType.STRING)
 	private GameGenre genre;
+	
+	private Boolean available;
 
-	public Game(String nome, Double preco, int qtdeEstoque ) {
-		this.setNome(nome);
-		this.setPreco(preco);
-		this.setQtdeEstoque(qtdeEstoque);
+	public Game(String name, Double price, int quantity ) {
+		this.setName(name);
+		this.setPrice(price);
+		this.setQuantity(quantity);
+		this.isAvailable();
+	}
+	
+	public Boolean isAvailable() {
+		Boolean isAv = this.getQuantity() > 0 ? true:false;
+		this.setAvailable(isAv);
+		return isAv;
+		
 	}
 }

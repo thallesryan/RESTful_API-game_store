@@ -52,9 +52,9 @@ public class GameController {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody GameRequestDTO game){
 		Game gameEncontrado = gameService.findById(id);
-		gameEncontrado.setNome(game.getNome());
-		gameEncontrado.setPreco(game.getPreco());
-		gameEncontrado.setQtdeEstoque(game.getQtdeEstoque());
+		gameEncontrado.setName(game.getName());
+		gameEncontrado.setPrice(game.getPrice());
+		gameEncontrado.setQuantity(game.getQuantity());
 		gameService.update(gameEncontrado);
 		return ResponseEntity.noContent().build();
 	}
@@ -67,7 +67,7 @@ public class GameController {
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	@DeleteMapping("{id}")
+	@DeleteMapping("/{id}")
 	public void deletarJogo(@PathVariable Long id) {
 		gameService.delete(id);
 	}

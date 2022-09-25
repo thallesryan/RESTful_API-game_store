@@ -16,9 +16,9 @@ public class GameResponseDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String nome;
-	private Double preco;
-	private Integer qtdeEstoque;
+	private String name;
+	private Double price;
+	private Integer quantity;
 	private GameGenre genre;
 	
 }
