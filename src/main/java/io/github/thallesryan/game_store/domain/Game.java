@@ -50,13 +50,6 @@ public class Game implements Serializable{
 		this.setName(name);
 		this.setPrice(price);
 		this.setQuantity(quantity);
-		this.isAvailable();
 	}
-	
-	public Boolean isAvailable() {
-		Boolean isAv = this.getQuantity() > 0 ? true:false;
-		this.setAvailable(isAv);
-		return isAv;
-		
-	}
+
 }

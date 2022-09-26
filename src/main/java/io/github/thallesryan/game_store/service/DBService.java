@@ -29,6 +29,9 @@ public class DBService {
 	
 	@Autowired
 	private UserRepository personRepository;
+	
+	@Autowired
+	private UserService userService;
 	 
 	public void instantiateDB() {
 		
@@ -43,5 +46,7 @@ public class DBService {
 		
 		personRepository.save(new UserModel(1,"Thalles","thallesryan2@gmail.com", encoder.encode("123"),Set.of(0,1)));
 		personRepository.save(new UserModel(2,"Vinicius","viniciusAmaro@gmail.com", encoder.encode("123"),Set.of(1)));
-	}
+		
+	
+}
 }

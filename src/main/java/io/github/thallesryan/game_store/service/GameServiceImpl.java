@@ -1,5 +1,7 @@
 package io.github.thallesryan.game_store.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +24,6 @@ public class GameServiceImpl implements GameService {
 	public GameResponseDTO save(GameRequestDTO game) {
 		GameMapper mapper = GameMapper.INSTANCE;
 		Game entitytoSave = mapper.toEntity(game);
-		entitytoSave.isAvailable();
 		Game entitySaved = this.repository.save(entitytoSave);
 		return mapper.toResponseDTO(entitySaved);
 	}
@@ -53,6 +54,12 @@ public class GameServiceImpl implements GameService {
 
 		return gamesList.map((game) -> mapper.toResponseDTO(game));
 
+	}
+	
+	@Override
+	public List<Game> findAvailableGames() {
+		this.repository.findByQuantityGreaterThan(0);
+		return null;
 	}
 
 }
