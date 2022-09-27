@@ -35,17 +35,21 @@ public class DBService {
 	 
 	public void instantiateDB() {
 		
+		personRepository.save(new UserModel(1,"Thalles","thallesryan2@gmail.com", encoder.encode("123"),Set.of(0,1)));
+		personRepository.save(new UserModel(2,"Vinicius","viniciusAmaro@gmail.com", encoder.encode("123"),Set.of(1)));
+		
 		Game game = new Game("The Last Of Us", 200D, 15);
 		Game game2 = new Game("Red Dead Redemption 2", 175D, 10);
 		Game game3 = new Game("Hollow Knight", 50D, 12);
 		
 		gameRepository.saveAll(List.of(game, game2, game3));
 		
-		Order order = new Order(Set.of(new Item(game, 1), new Item(game2, 1)));
+		UserModel userOrder1 = new UserModel();
+		userOrder1.setId(1);
+		
+		Order order = new Order(userOrder1,Set.of(new Item(game, 1), new Item(game2, 1)));
 		orderRepository.save(order);
 		
-		personRepository.save(new UserModel(1,"Thalles","thallesryan2@gmail.com", encoder.encode("123"),Set.of(0,1)));
-		personRepository.save(new UserModel(2,"Vinicius","viniciusAmaro@gmail.com", encoder.encode("123"),Set.of(1)));
 		
 	
 }

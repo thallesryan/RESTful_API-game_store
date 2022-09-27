@@ -22,6 +22,8 @@ public class GameRequestDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private Integer id;
+	
 	@NotEmpty(message = "Nome não pode estar vazio.")
 	@Column(name = "nome", length = 100)
 	private String name;

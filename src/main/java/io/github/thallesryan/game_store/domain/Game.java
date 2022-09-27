@@ -43,8 +43,6 @@ public class Game implements Serializable{
 	@Column(name = "Gênero")
 	@Enumerated(EnumType.STRING)
 	private GameGenre genre;
-	
-	private Boolean available;
 
 	public Game(String name, Double price, int quantity ) {
 		this.setName(name);

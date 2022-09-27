@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -31,21 +32,25 @@ public class Order implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate date = LocalDate.now(); 
 	
+	@ManyToOne(cascade=CascadeType.REFRESH)
+	private UserModel user;
+	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "orders_itens")
-	private Set<Item> itens;
+	private Set<Item> items;
 	
 	private Double total;
 
-	public Order(Set<Item> itens) {
+	public Order(UserModel user, Set<Item> itens) {
 		super();
-		this.itens = itens;
+		this.setUser(user);
+		this.items = itens;
 		calcTotal();
 	
 	}
 	
 	private void calcTotal() {
-		Double orderValue = this.itens.stream().map(item -> item.getGame().getPrice() * item.getQuantity()).reduce(0D, Double::sum);
+		Double orderValue = this.items.stream().map(item -> item.getGame().getPrice() * item.getQuantity()).reduce(0D, Double::sum);
 		this.setTotal(orderValue);  
 	}
 	

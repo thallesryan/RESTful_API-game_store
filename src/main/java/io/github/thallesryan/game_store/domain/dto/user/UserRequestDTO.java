@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class UserRequestDTO {
 	
+	private Integer id; 
+	
 	private String name;
 	
 	@Column(unique = true)
