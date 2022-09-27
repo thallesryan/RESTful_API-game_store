@@ -26,7 +26,7 @@ public class JWTUtil {
 
 	public String generateToken(String email) {
 		UserModel user = repository.findByEmail(email).get();
-		return Jwts.builder().setSubject(email).setExpiration(new Date(System.currentTimeMillis() + expiration)).claim("roles", user.getRoles().toString())
+		return Jwts.builder().setSubject(email).setExpiration(new Date(System.currentTimeMillis() + expiration)).claim("id", user.getId()).claim("roles", user.getRoles().toString())
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
 	}
 
