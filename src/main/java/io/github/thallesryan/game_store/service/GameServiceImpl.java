@@ -29,22 +29,23 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void update(Game jogo) {
-		repository.save(jogo);
+	public void update(GameResponseDTO gameEncontrado) {
+		repository.save(GameMapper.INSTANCE.toEntity(gameEncontrado));
 	}
 
 	@Override
-	public void delete(Integer idjogo) {
+	public void delete(Integer id) {
 
-		Game gameEncontrado = repository.findById(idjogo).orElseThrow(() -> new GameNotFoundException());
-		repository.delete(gameEncontrado);
+		Game found = repository.findById(id).orElseThrow(() -> new GameNotFoundException());
+		repository.delete(found);
 	}
 
 	@Override
-	public Game findById(Integer idJogo) {
+	public GameResponseDTO findById(Integer id) {
 		GameMapper mapper = GameMapper.INSTANCE;
 		
-		return repository.findById(idJogo).orElseThrow(() -> new GameNotFoundException());
+		Game entity = repository.findById(id).orElseThrow(() -> new GameNotFoundException());
+		return mapper.toResponseDTO(entity);
 	}
 
 	@Override

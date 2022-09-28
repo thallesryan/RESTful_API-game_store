@@ -2,6 +2,8 @@ package io.github.thallesryan.game_store.unittests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
@@ -15,7 +17,10 @@ import org.mockito.MockitoAnnotations;
 
 import io.github.thallesryan.game_store.domain.Game;
 import io.github.thallesryan.game_store.domain.dto.game.GameRequestDTO;
+import io.github.thallesryan.game_store.domain.dto.game.GameResponseDTO;
 import io.github.thallesryan.game_store.domain.enums.GameGenre;
+import io.github.thallesryan.game_store.exception.GameNotFoundException;
+import io.github.thallesryan.game_store.mapper.GameMapper;
 import io.github.thallesryan.game_store.repository.GameRepository;
 import io.github.thallesryan.game_store.service.GameServiceImpl;
 
@@ -24,6 +29,8 @@ class GameServiceTest {
 	Game mockGame;
 	
 	GameRequestDTO mockGameRequest;
+	
+	GameResponseDTO mockGameResponse;
 	
 	
 	@InjectMocks GameServiceImpl service;
@@ -35,6 +42,8 @@ class GameServiceTest {
 		mockGame = new Game();
 		MockitoAnnotations.openMocks(this);
 		this.mockGame = mockGame(1);
+		this.mockGameRequest = mockGameRequestDTO(1);
+		this.mockGameResponse = mockGameResponseDTO(1);
 		
 	}
 	@Test
@@ -56,16 +65,33 @@ class GameServiceTest {
 	void testFindById() {
 		
 		Game entity = mockGame;
+		
 		when(repository.findById(1)).thenReturn(Optional.of(entity));
-		Game result = service.findById(1);
+		Game result = repository.findById(1).orElseThrow(() -> new GameNotFoundException());
+		GameResponseDTO response = GameMapper.INSTANCE.toResponseDTO(result);
 		
-		assertNotNull(result);
-		assertNotNull(result.getId());
+		assertNotNull(response);
 		
-		assertEquals("Name Test1", result.getName());
-		assertEquals(1.0, result.getPrice());
-		assertEquals(1, result.getQuantity());
-		assertEquals(GameGenre.ACTION, GameGenre.ACTION);
+		assertNotNull(response.getId());
+		assertEquals("Name Test1", response.getName());
+		assertEquals(1.0, response.getPrice());
+		assertEquals(1, response.getQuantity());
+		assertEquals(GameGenre.ACTION, response.getGenre());
+		
+		
+	}
+	
+	@Test
+	void testFindByIdGameNotFoundException() {
+		Exception exception = assertThrows(GameNotFoundException.class, () -> service.findById(2));
+
+		System.out.println(exception);
+		String expectedMessage = "Jogo não encontrado.";
+		String actualMessage = exception.getMessage();
+		
+		
+		
+		assertTrue(actualMessage.contains(expectedMessage));
 	}
 
 	@Test
@@ -101,5 +127,17 @@ class GameServiceTest {
 		mockGameRequest.setGenre(GameGenre.ACTION);
 		
 		return mockGameRequest;
+	}
+	
+	private GameResponseDTO mockGameResponseDTO(Integer n) {
+		mockGameResponse = new GameResponseDTO();
+		
+		mockGameResponse.setId(n);
+		mockGameResponse.setName("Name Test" + n);
+		mockGameResponse.setPrice(n.doubleValue());
+		mockGameResponse.setQuantity(n);
+		mockGameResponse.setGenre(GameGenre.ACTION);
+		
+		return mockGameResponse;
 	}
 }

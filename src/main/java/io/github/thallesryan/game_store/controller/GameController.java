@@ -51,7 +51,7 @@ public class GameController {
 	@PutMapping("/{id}")
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody GameRequestDTO game){
-		Game gameEncontrado = gameService.findById(id);
+		GameResponseDTO gameEncontrado = gameService.findById(id);
 		gameEncontrado.setName(game.getName());
 		gameEncontrado.setPrice(game.getPrice());
 		gameEncontrado.setQuantity(game.getQuantity());
@@ -61,8 +61,7 @@ public class GameController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<GameResponseDTO> buscarJogoPeloId(@PathVariable Integer id) {
-		GameResponseDTO response = GameMapper.INSTANCE.toResponseDTO(gameService.findById(id));
-		return ResponseEntity.ok().body(response);
+		return ResponseEntity.ok().body(gameService.findById(id));
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)

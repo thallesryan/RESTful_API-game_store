@@ -13,14 +13,15 @@ public interface GameService {
 	
 	GameResponseDTO save(GameRequestDTO game);
 	
-	void update(Game game);
+	void update(GameResponseDTO game);
 	
-	void delete(Integer idJogo);
+	void delete(Integer id);
 	
-	Game findById(Integer idJogo);
+	GameResponseDTO findById(Integer id);
 	
 	Page<GameResponseDTO> findAll(Pageable pageable);
 	
 	List<Game> findAvailableGames();
+
 
 }
