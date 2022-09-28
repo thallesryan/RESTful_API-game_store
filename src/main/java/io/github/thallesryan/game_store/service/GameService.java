@@ -15,9 +15,9 @@ public interface GameService {
 	
 	void update(Game game);
 	
-	void delete(Long idJogo);
+	void delete(Integer idJogo);
 	
-	Game findById(Long idJogo);
+	Game findById(Integer idJogo);
 	
 	Page<GameResponseDTO> findAll(Pageable pageable);
 	

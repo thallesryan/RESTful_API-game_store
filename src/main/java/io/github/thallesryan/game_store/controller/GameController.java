@@ -50,7 +50,7 @@ public class GameController {
 	
 	@PutMapping("/{id}")
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody GameRequestDTO game){
+	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody GameRequestDTO game){
 		Game gameEncontrado = gameService.findById(id);
 		gameEncontrado.setName(game.getName());
 		gameEncontrado.setPrice(game.getPrice());
@@ -60,7 +60,7 @@ public class GameController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<GameResponseDTO> buscarJogoPeloId(@PathVariable Long id) {
+	public ResponseEntity<GameResponseDTO> buscarJogoPeloId(@PathVariable Integer id) {
 		GameResponseDTO response = GameMapper.INSTANCE.toResponseDTO(gameService.findById(id));
 		return ResponseEntity.ok().body(response);
 	}
@@ -68,7 +68,7 @@ public class GameController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
-	public void deletarJogo(@PathVariable Long id) {
+	public void deletarJogo(@PathVariable Integer id) {
 		gameService.delete(id);
 	}
 	

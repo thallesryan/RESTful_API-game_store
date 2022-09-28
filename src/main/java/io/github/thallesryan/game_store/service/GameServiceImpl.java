@@ -34,14 +34,14 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void delete(Long idjogo) {
+	public void delete(Integer idjogo) {
 
 		Game gameEncontrado = repository.findById(idjogo).orElseThrow(() -> new GameNotFoundException());
 		repository.delete(gameEncontrado);
 	}
 
 	@Override
-	public Game findById(Long idJogo) {
+	public Game findById(Integer idJogo) {
 		GameMapper mapper = GameMapper.INSTANCE;
 		
 		return repository.findById(idJogo).orElseThrow(() -> new GameNotFoundException());

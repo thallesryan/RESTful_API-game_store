@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import io.github.thallesryan.game_store.domain.Game;
 
-public interface GameRepository extends JpaRepository<Game, Long>{
+public interface GameRepository extends JpaRepository<Game, Integer>{
 	
 	List<Game> findByQuantityGreaterThan(Integer value);
 
