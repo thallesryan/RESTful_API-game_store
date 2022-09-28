@@ -1,5 +1,8 @@
 package io.github.thallesryan.game_store.service;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import io.github.thallesryan.game_store.controller.GameController;
 import io.github.thallesryan.game_store.domain.Game;
 import io.github.thallesryan.game_store.domain.dto.game.GameRequestDTO;
 import io.github.thallesryan.game_store.domain.dto.game.GameResponseDTO;
@@ -25,7 +29,11 @@ public class GameServiceImpl implements GameService {
 		GameMapper mapper = GameMapper.INSTANCE;
 		Game entitytoSave = mapper.toEntity(game);
 		Game entitySaved = this.repository.save(entitytoSave);
-		return mapper.toResponseDTO(entitySaved);
+		
+		
+		GameResponseDTO gameResponse = mapper.toResponseDTO(entitySaved);
+		gameResponse.add(linkTo(methodOn(GameController.class).findById(gameResponse.getId())).withSelfRel());
+		return gameResponse;
 	}
 
 	@Override

@@ -4,6 +4,8 @@ import java.net.URI;
 
 import javax.validation.Valid;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,9 +45,7 @@ public class GameController {
 	public ResponseEntity<GameResponseDTO> salvar(@RequestBody @Valid GameRequestDTO game) {
 		
 		GameResponseDTO gameResponse = gameService.save(game);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(gameResponse.getId()).toUri();
-		//No header da response
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.ok(gameResponse);
 	}
 	
 	@PutMapping("/{id}")
@@ -60,7 +60,7 @@ public class GameController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<GameResponseDTO> buscarJogoPeloId(@PathVariable Integer id) {
+	public ResponseEntity<GameResponseDTO> findById(@PathVariable Integer id) {
 		return ResponseEntity.ok().body(gameService.findById(id));
 	}
 	
