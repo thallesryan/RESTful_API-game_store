@@ -41,8 +41,8 @@ public class DBService {
 		personRepository.save(new UserModel(2,"Vinicius","viniciusAmaro@gmail.com", encoder.encode("123"),Set.of(1)));
 		
 		Game game = new Game("The Last Of Us", 200D, GameGenre.ADVENTURE, new InventoryControl(10));
-		Game game2 = new Game("Red Dead Redemption 2", 175D, 10);
-		Game game3 = new Game("Hollow Knight", 50D, 12);
+		Game game2 = new Game("Red Dead Redemption 2", 175D, GameGenre.ADVENTURE, new InventoryControl(23));
+		Game game3 = new Game("Hollow Knight", 50D, GameGenre.RPG, new InventoryControl(5));
 		
 		gameRepository.saveAll(List.of(game, game2, game3));
 		

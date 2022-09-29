@@ -1,6 +1,7 @@
 package io.github.thallesryan.game_store.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -39,7 +40,7 @@ public class GameController {
 	@Autowired
 	GameServiceImpl gameService;
 	
-	@PostMapping
+	@PostMapping()
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<GameResponseDTO> salvar(@RequestBody @Valid GameRequestDTO game) {
@@ -76,5 +77,11 @@ public class GameController {
 	public ResponseEntity<Page<GameResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "0")Integer page, @RequestParam(value = "size", defaultValue = "12")Integer size){
 		Pageable pagable = PageRequest.of(page, size);
 		return ResponseEntity.ok(gameService.findAll(pagable));
+	}
+	
+	@ResponseStatus(code = HttpStatus.OK)
+	@GetMapping("/available")
+	public List<GameResponseDTO> gamesAvailable() {
+		return this.gameService.findAvailableGames();
 	}
 }

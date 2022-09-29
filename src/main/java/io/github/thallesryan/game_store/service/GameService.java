@@ -21,7 +21,7 @@ public interface GameService {
 	
 	Page<GameResponseDTO> findAll(Pageable pageable);
 	
-	List<Game> findAvailableGames();
+	List<GameResponseDTO> findAvailableGames();
 
 
 }

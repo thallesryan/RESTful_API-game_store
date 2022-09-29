@@ -4,6 +4,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -69,9 +70,8 @@ public class GameServiceImpl implements GameService {
 	}
 	
 	@Override
-	public List<Game> findAvailableGames() {
-		return this.repository.findGamesAvailables();
-		
+	public List<GameResponseDTO> findAvailableGames() {
+		 return this.repository.findAvailableGames().stream().map(GameMapper.INSTANCE::toResponseDTO).collect(Collectors.toList());
 	}
 
 }
