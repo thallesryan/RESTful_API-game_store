@@ -11,4 +11,8 @@ public class ItemRequestDTO {
 
 	private GameRequestDTO game;
 	private Integer quantity;
+	
+	public Integer getQuantity() {
+		return this.quantity == null ? 1 : this.quantity;
+	}
 }

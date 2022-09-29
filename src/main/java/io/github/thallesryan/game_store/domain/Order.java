@@ -45,13 +45,10 @@ public class Order implements Serializable{
 		super();
 		this.setUser(user);
 		this.items = itens;
-		calcTotal();
+		
 	
 	}
 	
-	private void calcTotal() {
-		Double orderValue = this.items.stream().map(item -> item.getGame().getPrice() * item.getQuantity()).reduce(0D, Double::sum);
-		this.setTotal(orderValue);  
-	}
+	
 	
 }

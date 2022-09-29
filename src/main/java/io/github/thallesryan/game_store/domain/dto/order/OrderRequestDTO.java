@@ -12,5 +12,6 @@ public class OrderRequestDTO {
 	
 	private UserRequestDTO user;
 	private Set<ItemRequestDTO> items;
+	private Double total;
 	
 }

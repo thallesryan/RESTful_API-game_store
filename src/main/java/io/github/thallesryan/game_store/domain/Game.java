@@ -43,7 +43,7 @@ public class Game implements Serializable{
 	@Column(nullable = false, scale = 2)
 	private Double price;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private InventoryControl inventoryControl;
 
 	@Column(name = "Gênero")

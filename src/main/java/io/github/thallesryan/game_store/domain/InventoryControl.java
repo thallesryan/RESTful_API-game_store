@@ -9,9 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity @NoArgsConstructor @AllArgsConstructor
+@Entity @NoArgsConstructor @AllArgsConstructor @Data
 public class InventoryControl implements Serializable{
 	
 	/**
@@ -46,13 +47,15 @@ public class InventoryControl implements Serializable{
 	public InventoryControl(Integer stock) {
 		super();
 		this.stock = stock;
+		this.setQuantitiesSold(0);
 	}
 	
 	public void addStock(Integer n) {
 		this.stock += n;
 	}
 	
-	public void addQuantitySold(Integer n) {
+	public void sellGame(Integer n) {
+		this.stock -= n;
 		this.quantitiesSold += n;
 	}
 

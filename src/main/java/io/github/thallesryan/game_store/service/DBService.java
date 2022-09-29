@@ -33,8 +33,8 @@ public class DBService {
 	private UserRepository personRepository;
 	
 	@Autowired
-	private UserService userService;
-	 
+	private OrderService orderService;
+	
 	public void instantiateDB() {
 		
 		personRepository.save(new UserModel(1,"Thalles","thallesryan2@gmail.com", encoder.encode("123"),Set.of(0,1)));
@@ -51,6 +51,8 @@ public class DBService {
 		
 		Order order = new Order(userOrder1,Set.of(new Item(game, 1), new Item(game2, 1)));
 		orderRepository.save(order);
+		
+
 		
 		
 	

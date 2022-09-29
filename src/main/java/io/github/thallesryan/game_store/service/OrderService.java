@@ -24,12 +24,19 @@ public class OrderService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private GameService gameService;
+	
 
 	public void save(OrderRequestDTO orderRequest) {
 		Order entity = OrderMapper.INSTANCE.toEntity(orderRequest);
 		UserModel user = userRepository.findById(orderRequest.getUser().getId())
 				.orElseThrow(() -> new BadCredentialsException("Usuário não encontrado!"));
+		
 		entity.setUser(user);
+		
+		this.gameService.gamesSold(orderRequest.getItems());
 
 		repository.save(entity);
 	}
