@@ -53,7 +53,10 @@ public class GameServiceImpl implements GameService {
 		GameMapper mapper = GameMapper.INSTANCE;
 		
 		Game entity = repository.findById(id).orElseThrow(() -> new GameNotFoundException());
-		return mapper.toResponseDTO(entity);
+		
+		GameResponseDTO response = mapper.toResponseDTO(entity);
+		response.add(linkTo(methodOn(GameController.class).findById(id)).withSelfRel());
+		return response;
 	}
 
 	@Override
