@@ -74,7 +74,14 @@ public class GameServiceImpl implements GameService {
 	
 	@Override
 	public List<GameResponseDTO> findAvailableGames() {
-		 return this.repository.findAvailableGames().stream().map(GameMapper.INSTANCE::toResponseDTO).collect(Collectors.toList());
+			List<Game> games = this.repository.findAvailableGames();
+		
+			return games.stream().map(game -> {
+				 GameResponseDTO response = GameMapper.INSTANCE.toResponseDTO(game);
+				 response.setQuantity(game.getInventoryControl().getStock());
+				 response.add(linkTo(methodOn(GameController.class).findById(response.getId())).withSelfRel());
+				 return response;
+			}).collect(Collectors.toList());
 	}
 	
 	@Override
