@@ -18,7 +18,7 @@ public class OrderResponseDTO {
 	
 	private LocalDate date;
 	
-	private Set<Item> itens;
+	private Set<Item> items;
 	
 	private Double total;
 }

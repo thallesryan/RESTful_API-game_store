@@ -49,5 +49,13 @@ public class Game implements Serializable{
 		this.setPrice(price);
 		this.setQuantity(quantity);
 	}
+	
+	public Game(String name, Double price, int quantity, GameGenre genre ) {
+		this.setName(name);
+		this.setPrice(price);
+		this.setQuantity(quantity);
+		this.setGenre(genre);	
+	}
+
 
 }
