@@ -70,8 +70,8 @@ public class GameServiceImpl implements GameService {
 	
 	@Override
 	public List<Game> findAvailableGames() {
-		this.repository.findByQuantityGreaterThan(0);
-		return null;
+		return this.repository.findGamesAvailables();
+		
 	}
 
 }

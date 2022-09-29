@@ -110,7 +110,7 @@ class GameServiceTest {
 		mockGame.setId(n);
 		mockGame.setName("Name Test" + n);
 		mockGame.setPrice(n.doubleValue());
-		mockGame.setQuantity(n);
+		//mockGame.setQuantity(n);
 		mockGame.setGenre(GameGenre.ACTION);
 		
 		return mockGame;

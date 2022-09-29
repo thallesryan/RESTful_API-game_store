@@ -8,9 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import io.github.thallesryan.game_store.domain.Game;
+import io.github.thallesryan.game_store.domain.InventoryControl;
 import io.github.thallesryan.game_store.domain.Item;
 import io.github.thallesryan.game_store.domain.Order;
 import io.github.thallesryan.game_store.domain.UserModel;
+import io.github.thallesryan.game_store.domain.enums.GameGenre;
 import io.github.thallesryan.game_store.repository.GameRepository;
 import io.github.thallesryan.game_store.repository.OrderRepository;
 import io.github.thallesryan.game_store.repository.UserRepository;
@@ -38,7 +40,7 @@ public class DBService {
 		personRepository.save(new UserModel(1,"Thalles","thallesryan2@gmail.com", encoder.encode("123"),Set.of(0,1)));
 		personRepository.save(new UserModel(2,"Vinicius","viniciusAmaro@gmail.com", encoder.encode("123"),Set.of(1)));
 		
-		Game game = new Game("The Last Of Us", 200D, 15);
+		Game game = new Game("The Last Of Us", 200D, GameGenre.ADVENTURE, new InventoryControl(10));
 		Game game2 = new Game("Red Dead Redemption 2", 175D, 10);
 		Game game3 = new Game("Hollow Knight", 50D, 12);
 		

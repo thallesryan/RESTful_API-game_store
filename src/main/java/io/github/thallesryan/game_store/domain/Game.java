@@ -2,14 +2,19 @@ package io.github.thallesryan.game_store.domain;
 
 import java.io.Serializable;
 
-
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import io.github.thallesryan.game_store.domain.enums.GameGenre;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +23,7 @@ import lombok.ToString;
 
 /*Lombok*/
 @Getter @Setter
-@ToString @EqualsAndHashCode  @NoArgsConstructor 
+@ToString @EqualsAndHashCode  @NoArgsConstructor @AllArgsConstructor
 
 /*Herança*/
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -38,7 +43,8 @@ public class Game implements Serializable{
 	@Column(nullable = false, scale = 2)
 	private Double price;
 	
-	private Integer quantity;
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private InventoryControl inventoryControl;
 
 	@Column(name = "Gênero")
 	@Enumerated(EnumType.STRING)
@@ -47,14 +53,14 @@ public class Game implements Serializable{
 	public Game(String name, Double price, int quantity ) {
 		this.setName(name);
 		this.setPrice(price);
-		this.setQuantity(quantity);
+		//this.setQuantity(quantity);
 	}
 	
-	public Game(String name, Double price, int quantity, GameGenre genre ) {
+	public Game(String name, Double price,GameGenre genre, InventoryControl inventoryControl ) {
 		this.setName(name);
 		this.setPrice(price);
-		this.setQuantity(quantity);
 		this.setGenre(genre);	
+		this.setInventoryControl(inventoryControl);
 	}
 
 
