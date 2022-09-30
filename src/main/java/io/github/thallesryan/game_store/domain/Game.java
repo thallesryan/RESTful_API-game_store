@@ -1,6 +1,7 @@
 package io.github.thallesryan.game_store.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.github.thallesryan.game_store.domain.enums.GameGenre;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -23,7 +26,7 @@ import lombok.ToString;
 
 /*Lombok*/
 @Getter @Setter
-@ToString @EqualsAndHashCode  @NoArgsConstructor @AllArgsConstructor
+@ToString  @NoArgsConstructor @AllArgsConstructor
 
 /*Herança*/
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -43,6 +46,7 @@ public class Game implements Serializable{
 	@Column(nullable = false, scale = 2)
 	private Double price;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private InventoryControl inventoryControl;
 
@@ -63,5 +67,23 @@ public class Game implements Serializable{
 		this.setInventoryControl(inventoryControl);
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, price);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Game other = (Game) obj;
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name) && Objects.equals(price, other.price);
+	}
+
+	
 
 }

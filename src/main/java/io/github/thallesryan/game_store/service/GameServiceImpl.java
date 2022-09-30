@@ -68,8 +68,15 @@ public class GameServiceImpl implements GameService {
 		GameMapper mapper = GameMapper.INSTANCE;
 		Page<Game> gamesList = repository.findAll(pageable);
 
-		return gamesList.map((game) -> mapper.toResponseDTO(game));
+		Page<GameResponseDTO> pageResponse = gamesList.map((game) -> {
+				GameResponseDTO response = mapper.toResponseDTO(game);
+				response.setQuantity(game.getInventoryControl().getStock());
+				response.add(linkTo(methodOn(GameController.class).findById(response.getId())).withSelfRel());
+				return response;
+			
+			});
 
+		return pageResponse;
 	}
 	
 	@Override

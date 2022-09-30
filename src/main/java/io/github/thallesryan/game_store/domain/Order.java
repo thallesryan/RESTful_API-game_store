@@ -18,10 +18,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity(name = "orders")
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode
 public class Order implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -45,9 +46,15 @@ public class Order implements Serializable{
 		super();
 		this.setUser(user);
 		this.items = itens;
-		
-	
 	}
+
+	public Order(UserModel user, Set<Item> items, Double total) {
+		super();
+		this.user = user;
+		this.items = items;
+		this.total = total;
+	}
+	
 	
 	
 	

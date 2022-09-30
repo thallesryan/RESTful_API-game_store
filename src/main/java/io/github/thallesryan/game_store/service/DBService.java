@@ -49,7 +49,7 @@ public class DBService {
 		UserModel userOrder1 = new UserModel();
 		userOrder1.setId(1);
 		
-		Order order = new Order(userOrder1,Set.of(new Item(game, 1), new Item(game2, 1)));
+		Order order = new Order(userOrder1,Set.of(new Item(game, 1), new Item(game2, 1)), 200D);
 		orderRepository.save(order);
 		
 
